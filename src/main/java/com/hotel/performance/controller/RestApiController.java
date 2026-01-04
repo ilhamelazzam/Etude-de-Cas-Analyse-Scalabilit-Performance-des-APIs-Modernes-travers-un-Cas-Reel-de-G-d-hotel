@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/api/rest")
@@ -38,5 +40,13 @@ public class RestApiController {
     @DeleteMapping("/reservations/{id}")
     public void deleteReservation(@PathVariable Long id) {
         hotelService.deleteReservation(id);
+    }
+
+    @GetMapping("/health")
+    public Map<String, Object> health() {
+        return Map.of(
+                "status", "UP",
+                "checkedAt", Instant.now().toString()
+        );
     }
 }
